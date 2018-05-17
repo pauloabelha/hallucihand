@@ -79,6 +79,8 @@ for epoch in range(train_vars['num_epochs']):
         train_vars['batch_idx'] = batch_idx
         _, target_joints, _ = target
         target_joints = Variable(target_joints)
+        if train_vars['use_cuda']:
+            target_joints = target_joints.cuda()
         output_joints = vaehand(target_joints)
         loss = euclidean_loss(output_joints, target_joints)
         train_vars['losses'].append(loss.item())
