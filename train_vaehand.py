@@ -3,24 +3,56 @@ from torch.autograd import Variable
 from vae_hand import VAEHand
 import torch.optim as optim
 import torch
+import argparse
 
-NUM_EPOCHS = 100
-BATCH_SIZE = 16
-LOG_INTERVAL = 10
-USE_CUDA = True
+parser = argparse.ArgumentParser(description='Train a hand-tracking deep neural network')
+parser.add_argument('--num_epochs', dest='num_epochs', type=int, required=True,
+                    help='Total number of iterations to train')
+parser.add_argument('-c', dest='checkpoint_filepath', default='',
+                    help='Checkpoint file from which to begin training')
+parser.add_argument('--log_interval', type=int, dest='log_interval', default=10,
+                    help='Number of iterations interval on which to log'
+                         ' a model checkpoint (default 10)')
+parser.add_argument('--cuda', dest='use_cuda', action='store_true', default=False,
+                    help='Whether to use cuda for training')
+parser.add_argument('--verbose', dest='verbose', action='store_true', default=True,
+                    help='Whether to use cuda for training')
+parser.add_argument('-o', dest='output_filepath', default='',
+                    help='Output file for logging')
+parser.add_argument('--batch_size', type=int, dest='batch_size', default=16,
+                    help='Batch size for training (if larger than max memory batch, training will take '
+                         'the required amount of iterations to complete a batch')
+parser.add_argument('-r', dest='root_folder', default='', required=True, help='Root folder for dataset')
+args = parser.parse_args()
+
+
 
 train_vars = {}
-train_vars['num_epochs'] = NUM_EPOCHS
-train_vars['batch_size'] = BATCH_SIZE
-train_vars['log_interval'] = LOG_INTERVAL
+train_vars['root_folder'] = args.root_folder
+train_vars['num_epochs'] = args.num_epochs
+train_vars['batch_size'] = args.batch_size
+train_vars['log_interval'] = args.log_interval
+train_vars['use_cuda'] = args.use_cuda
+train_vars['output_filepath'] = args.output_filepath
+train_vars['verbose'] = args.verbose
 train_vars['losses'] = []
 train_vars['avg_losses'] = []
 train_vars['total_loss'] = 0
 train_vars['epoch'] = 0
 train_vars['iter'] = 0
 train_vars['batch_idx'] = 0
-train_vars['cuda'] = USE_CUDA
+
 train_vars['checkpoint_filepath'] = 'vae_hand_log.pth.tar'
+
+def print_verbose(str, verbose, n_tabs=0, erase_line=False):
+    prefix = '\t' * n_tabs
+    msg = prefix + str
+    if verbose:
+        if erase_line:
+            print(msg, end='')
+        else:
+            print(prefix + str)
+    return msg
 
 def euclidean_loss(output, target):
     batch_size = output.shape[0]
@@ -28,21 +60,20 @@ def euclidean_loss(output, target):
 
 synthhands_handler, _ = load_muellericcv2017_handlers.load()
 
-ROOT_FOLDER_SYNTHHANDS = '/home/paulo/rds_muri/paulo/synthhands/SynthHands_Release/'
-train_loader_synthhands = synthhands_handler.get_SynthHands_trainloader(root_folder=ROOT_FOLDER_SYNTHHANDS,
+train_loader_synthhands = synthhands_handler.get_SynthHands_trainloader(root_folder=train_vars['root_folder'],
                                                              joint_ixs=range(21),
                                                              heatmap_res=(640, 480),
-                                                             batch_size=BATCH_SIZE,
+                                                             batch_size=train_vars['batch_size'],
                                                              verbose=True)
 
 len_dataset=len(train_loader_synthhands.dataset)
 vaehand = VAEHand()
 adam_optim = optim.Adam(params=vaehand.parameters(), lr=0.001)
 
-if train_vars['cuda']:
+if train_vars['use_cuda']:
     vaehand = vaehand.cuda()
 
-for epoch in range(NUM_EPOCHS):
+for epoch in range(train_vars['num_epochs']):
     train_vars['epoch'] = epoch
     for batch_idx, (data, target) in enumerate(train_loader_synthhands):
         train_vars['batch_idx'] = batch_idx
@@ -55,7 +86,7 @@ for epoch in range(NUM_EPOCHS):
         loss.backward()
         adam_optim.step()
         adam_optim.zero_grad()
-        if (train_vars['iter']+1) % LOG_INTERVAL == 0:
+        if (train_vars['iter']+1) % train_vars['log_interval'] == 0:
             print('Saving model...')
             checkpoint_model_dict = {
                 'model_state_dict': vaehand.state_dict(),
@@ -63,7 +94,7 @@ for epoch in range(NUM_EPOCHS):
                 'train_vars': train_vars,
             }
             torch.save(checkpoint_model_dict, train_vars['checkpoint_filepath'])
-            avg_loss = train_vars['total_loss'] / LOG_INTERVAL
+            avg_loss = train_vars['total_loss'] / train_vars['log_interval']
             train_vars['avg_losses'].append(avg_loss)
             train_vars['total_loss'] = 0
             perc_batch_completed = int(100 * (train_vars['batch_idx'] *
@@ -71,9 +102,13 @@ for epoch in range(NUM_EPOCHS):
                                        len_dataset)
             perc_epoch_completed = int(100 * train_vars['epoch'] /
                                        train_vars['num_epochs'])
-            print('Epoch {}/{} : {}% | Batch {}({}) : {}% | Loss {}'.
+            msg = ''
+            msg += print_verbose('Epoch {}/{} : {}% | Batch {}({}) : {}% | Loss {}'.
                   format(train_vars['epoch']+1, train_vars['num_epochs'],
                          perc_epoch_completed, (train_vars['batch_idx']+1),
                          train_vars['batch_size'], perc_batch_completed,
-                         avg_loss))
+                         avg_loss), train_vars['verbose'])
+            if not train_vars['output_filepath'] == '':
+                with open(train_vars['output_filepath'], 'a') as f:
+                    f.write(msg + '\n')
         train_vars['iter'] += 1
