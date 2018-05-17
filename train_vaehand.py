@@ -7,6 +7,20 @@ import torch
 NUM_EPOCHS = 100
 BATCH_SIZE = 16
 LOG_INTERVAL = 10
+USE_CUDA = True
+
+train_vars = {}
+train_vars['num_epochs'] = NUM_EPOCHS
+train_vars['batch_size'] = BATCH_SIZE
+train_vars['log_interval'] = LOG_INTERVAL
+train_vars['losses'] = []
+train_vars['avg_losses'] = []
+train_vars['total_loss'] = 0
+train_vars['epoch'] = 0
+train_vars['iter'] = 0
+train_vars['batch_idx'] = 0
+train_vars['cuda'] = USE_CUDA
+train_vars['checkpoint_filepath'] = 'vae_hand_log.pth.tar'
 
 def euclidean_loss(output, target):
     batch_size = output.shape[0]
@@ -25,17 +39,8 @@ len_dataset=len(train_loader_synthhands.dataset)
 vaehand = VAEHand()
 adam_optim = optim.Adam(params=vaehand.parameters(), lr=0.001)
 
-train_vars = {}
-train_vars['num_epochs'] = NUM_EPOCHS
-train_vars['batch_size'] = BATCH_SIZE
-train_vars['log_interval'] = LOG_INTERVAL
-train_vars['losses'] = []
-train_vars['avg_losses'] = []
-train_vars['total_loss'] = 0
-train_vars['epoch'] = 0
-train_vars['iter'] = 0
-train_vars['batch_idx'] = 0
-train_vars['checkpoint_filepath'] = 'vae_hand_log.pth.tar'
+if train_vars['cuda']:
+    vaehand = vaehand.cuda()
 
 for epoch in range(NUM_EPOCHS):
     train_vars['epoch'] = epoch
