@@ -1,5 +1,7 @@
 import load_muellericcv2017_handlers
 from torch.autograd import Variable
+
+from losses import euclidean_loss
 from vae_hand import VAEHand
 import torch.optim as optim
 import torch
@@ -57,9 +59,6 @@ def print_verbose(str, verbose, n_tabs=0, erase_line=False):
             print(prefix + str)
     return msg
 
-def euclidean_loss(output, target):
-    batch_size = output.shape[0]
-    return (output - target).abs().sum() / batch_size
 
 synthhands_handler, _ = load_muellericcv2017_handlers.load()
 
