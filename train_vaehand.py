@@ -13,6 +13,8 @@ parser.add_argument('-c', dest='checkpoint_filepath', default='',
 parser.add_argument('--log_interval', type=int, dest='log_interval', default=10,
                     help='Number of iterations interval on which to log'
                          ' a model checkpoint (default 10)')
+parser.add_argument('--latent_dims', type=int, dest='latent_dims', default=23,
+                    help='Number of latent dims for VAE')
 parser.add_argument('--cuda', dest='use_cuda', action='store_true', default=False,
                     help='Whether to use cuda for training')
 parser.add_argument('--verbose', dest='verbose', action='store_true', default=True,
@@ -34,6 +36,7 @@ train_vars['batch_size'] = args.batch_size
 train_vars['log_interval'] = args.log_interval
 train_vars['use_cuda'] = args.use_cuda
 train_vars['output_filepath'] = args.output_filepath
+train_vars['latent_dims'] = args.latent_dims
 train_vars['verbose'] = args.verbose
 train_vars['losses'] = []
 train_vars['avg_losses'] = []
@@ -67,7 +70,7 @@ train_loader_synthhands = synthhands_handler.get_SynthHands_trainloader(root_fol
                                                              verbose=True)
 
 len_dataset=len(train_loader_synthhands.dataset)
-vaehand = VAEHand()
+vaehand = VAEHand(latent_dims=train_vars['latent_dims'])
 adam_optim = optim.Adam(params=vaehand.parameters(), lr=0.001)
 
 if train_vars['use_cuda']:
