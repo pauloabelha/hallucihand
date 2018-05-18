@@ -1,6 +1,6 @@
 import load_muellericcv2017_handlers
 from torch.autograd import Variable
-
+import numpy as np
 from losses import euclidean_loss
 from vae_hand import VAEHand
 import torch.optim as optim
@@ -10,6 +10,8 @@ import argparse
 parser = argparse.ArgumentParser(description='Train a hand-tracking deep neural network')
 parser.add_argument('--num_epochs', dest='num_epochs', type=int, required=True,
                     help='Total number of iterations to train')
+parser.add_argument('--rel_pos', dest='rel_pos', action='store_true', default=False,
+                    help='Whether to use relative joint position (to the hand root)')
 parser.add_argument('-c', dest='checkpoint_filepath', default='',
                     help='Checkpoint file from which to begin training')
 parser.add_argument('--log_interval', type=int, dest='log_interval', default=10,
@@ -30,9 +32,10 @@ parser.add_argument('-r', dest='root_folder', default='', required=True, help='R
 args = parser.parse_args()
 
 
-
 train_vars = {}
 train_vars['root_folder'] = args.root_folder
+train_vars['checkpoint_filepath'] = args.checkpoint_filepath
+train_vars['rel_pos'] = args.rel_pos
 train_vars['num_epochs'] = args.num_epochs
 train_vars['batch_size'] = args.batch_size
 train_vars['log_interval'] = args.log_interval
@@ -46,8 +49,6 @@ train_vars['total_loss'] = 0
 train_vars['epoch'] = 0
 train_vars['iter'] = 0
 train_vars['batch_idx'] = 0
-
-train_vars['checkpoint_filepath'] = 'vae_hand_log.pth.tar'
 
 def print_verbose(str, verbose, n_tabs=0, erase_line=False):
     prefix = '\t' * n_tabs
@@ -69,7 +70,10 @@ train_loader_synthhands = synthhands_handler.get_SynthHands_trainloader(root_fol
                                                              verbose=True)
 
 len_dataset=len(train_loader_synthhands.dataset)
-vaehand = VAEHand(latent_dims=train_vars['latent_dims'])
+if train_vars['rel_pos']:
+    vaehand = VAEHand(num_joints=20, latent_dims=train_vars['latent_dims'])
+else:
+    vaehand = VAEHand(latent_dims=train_vars['latent_dims'])
 adam_optim = optim.Adam(params=vaehand.parameters(), lr=0.001)
 
 if train_vars['use_cuda']:
@@ -80,6 +84,13 @@ for epoch in range(train_vars['num_epochs']):
     for batch_idx, (data, target) in enumerate(train_loader_synthhands):
         train_vars['batch_idx'] = batch_idx
         _, target_joints, _ = target
+        if train_vars['rel_pos']:
+            target_joints_rel = np.zeros((target_joints.shape[0], target_joints.shape[1]-3))
+            for i in range(train_vars['batch_size']):
+                target_joints_reshaped = target_joints[i].reshape((21, 3))
+                target_joints_reshaped -= target_joints_reshaped[0, :]
+                target_joints_rel[i] = target_joints_reshaped[1:, :].reshape((60))
+            target_joints = torch.from_numpy(target_joints_rel).float()
         target_joints = Variable(target_joints)
         if train_vars['use_cuda']:
             target_joints = target_joints.cuda()

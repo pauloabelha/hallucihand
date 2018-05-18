@@ -74,7 +74,10 @@ def get_losses_from_file_suffix(file_suffix, root_folder='/home/paulo/hallucihan
     with open(filepath) as f:
         for line in f:
             loss_ix = line.find('Loss ')
-            loss = float(line[loss_ix + 5:]) / 21.0
+            div = 21.0
+            if 'relpos' in file_suffix:
+                div = 20.0
+            loss = float(line[loss_ix + 5:]) / div
             losses.append(loss)
     return losses
 
@@ -96,8 +99,8 @@ train_vars['iter'] = 0
 train_vars['batch_idx'] = 0
 
 
-suffixes = ['5', '10', '23', '30', '31']
-#suffixes = ['23', '30', '31']
+suffixes = ['5', '10', '23', '30', '31', '28_relpos']
+#suffixes = ['23']
 losses_list = []
 min_len = 1e10
 for i in range(len(suffixes)):
@@ -106,7 +109,7 @@ for i in range(len(suffixes)):
         min_len = len(losses)
     losses_list.append(losses)
 
-min_ix = 10
+min_ix = 5
 max_ix = min_len
 handles = []
 for i in range(len(suffixes)):
@@ -125,6 +128,7 @@ train_loader_synthhands = synthhands_handler.get_SynthHands_validloader(root_fol
 for batch_idx, (data, target) in enumerate(train_loader_synthhands):
     train_vars['batch_idx'] = batch_idx
     _, target_joints_orig, _ = target
+    target_joints_orig += 100.0
     target_joints = Variable(target_joints_orig)
     if train_vars['use_cuda']:
         target_joints = target_joints.cuda()
