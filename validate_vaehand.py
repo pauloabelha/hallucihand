@@ -95,8 +95,9 @@ train_vars['epoch'] = 0
 train_vars['iter'] = 0
 train_vars['batch_idx'] = 0
 
-'''
-suffixes = ['5', '10', '23', '30']
+
+suffixes = ['5', '10', '23', '30', '31']
+#suffixes = ['23', '30', '31']
 losses_list = []
 min_len = 1e10
 for i in range(len(suffixes)):
@@ -105,15 +106,15 @@ for i in range(len(suffixes)):
         min_len = len(losses)
     losses_list.append(losses)
 
-min_ix = 5
+min_ix = 10
 max_ix = min_len
 handles = []
 for i in range(len(suffixes)):
     handle = plt.plot(losses_list[i][min_ix:max_ix], label=suffixes[i])
     handles.append(handle)
 plt.legend()
-#plt.show()
-'''
+plt.show()
+
 
 train_loader_synthhands = synthhands_handler.get_SynthHands_validloader(root_folder=train_vars['root_folder'],
                                                              joint_ixs=range(21),
