@@ -99,8 +99,8 @@ train_vars['iter'] = 0
 train_vars['batch_idx'] = 0
 
 
-suffixes = ['5', '10', '23', '30', '31', '28_relpos']
-#suffixes = ['23']
+suffixes = ['15_relpos', '20_relpos', '25_relpos', '28_relpos']
+
 losses_list = []
 min_len = 1e10
 for i in range(len(suffixes)):
@@ -109,7 +109,7 @@ for i in range(len(suffixes)):
         min_len = len(losses)
     losses_list.append(losses)
 
-min_ix = 5
+min_ix = 100
 max_ix = min_len
 handles = []
 for i in range(len(suffixes)):

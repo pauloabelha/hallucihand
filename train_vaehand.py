@@ -86,7 +86,7 @@ for epoch in range(train_vars['num_epochs']):
         _, target_joints, _ = target
         if train_vars['rel_pos']:
             target_joints_rel = np.zeros((target_joints.shape[0], target_joints.shape[1]-3))
-            for i in range(train_vars['batch_size']):
+            for i in range(target_joints.shape[0]):
                 target_joints_reshaped = target_joints[i].reshape((21, 3))
                 target_joints_reshaped -= target_joints_reshaped[0, :]
                 target_joints_rel[i] = target_joints_reshaped[1:, :].reshape((60))
