@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2c43010-56e7-49d2-9204-afd81f66e998" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/muellericcv2017_importer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_25_relpos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output_25_relpos.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_28_relpos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output_28_relpos.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hand_prior.py" beforeDir="false" afterPath="$PROJECT_DIR$/hand_prior.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/load_muellericcv2017_handlers.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/train_vaehand.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_vaehand.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vaehand_25_relpos.pth.tar" beforeDir="false" afterPath="$PROJECT_DIR$/vaehand_25_relpos.pth.tar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vaehand_28_relpos.pth.tar" beforeDir="false" afterPath="$PROJECT_DIR$/vaehand_28_relpos.pth.tar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/validate_vaehand.py" beforeDir="false" afterPath="$PROJECT_DIR$/validate_vaehand.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,11 +21,32 @@
       <file leaf-file-name="train_vaehand.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train_vaehand.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="461">
-              <caret line="104" column="36" lean-forward="true" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="36" />
+            <state relative-caret-position="315">
+              <caret line="63" column="14" selection-start-line="63" selection-end-line="63" selection-end-column="14" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="muellericcv2017_importer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/muellericcv2017_importer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="37" lean-forward="true" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="synthhands_handler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/muellericcv2017/synthhands_handler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -68,6 +88,9 @@
         <option value="$PROJECT_DIR$/losses.py" />
         <option value="$PROJECT_DIR$/visualize.py" />
         <option value="$PROJECT_DIR$/validate_vaehand.py" />
+        <option value="$PROJECT_DIR$/load_muellericcv2017_handlers.py" />
+        <option value="$PROJECT_DIR$/importer.py" />
+        <option value="$PROJECT_DIR$/muellericcv2017_importer.py" />
         <option value="$PROJECT_DIR$/train_vaehand.py" />
       </list>
     </option>
@@ -115,7 +138,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.validate_vaehand">
+  <component name="RunManager" selected="Python.train_vaehand">
     <configuration name="train_vaehand" type="PythonConfigurationType" factoryName="Python">
       <module name="hallucihand" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -129,7 +152,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_vaehand.py" />
-      <option name="PARAMETERS" value="--batch_size=2 --rel_pos --latent_dims=25 -r $PROJECT_DIR$/../rds_muri/paulo/synthhands/SynthHands_Release/ --num_epochs=100 --log_interval=10 -o output.txt" />
+      <option name="PARAMETERS" value="--batch_size=2 --rel_pos --latent_dims=25 -r $PROJECT_DIR$/../SynthHands_Release/ --num_epochs=100 --log_interval=10 -o output.txt" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -187,7 +210,7 @@
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3545082" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3545082" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -210,7 +233,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="46" />
+      <option name="time" value="53" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -408,10 +431,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/muellericcv2017/synthhands_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/muellericcv2017/egodexter_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="70" lean-forward="true" selection-start-line="9" selection-start-column="70" selection-end-line="9" selection-end-column="70" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/muellericcv2017_importer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="37" lean-forward="true" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train_vaehand.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="104" column="36" lean-forward="true" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="36" />
+        <state relative-caret-position="315">
+          <caret line="63" column="14" selection-start-line="63" selection-end-line="63" selection-end-column="14" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>

@@ -1,4 +1,4 @@
-import load_muellericcv2017_handlers
+import muellericcv2017_importer
 from torch.autograd import Variable
 from vae_hand import VAEHand
 import torch
@@ -30,7 +30,7 @@ args = parser.parse_args()
 
 
 
-synthhands_handler, _ = load_muellericcv2017_handlers.load()
+synthhands_handler, _ = muellericcv2017_importer.load()
 
 def load_checkpoint(filename, use_cuda=True):
     torch_file = torch.load(filename, map_location=lambda storage, loc: storage)

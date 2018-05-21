@@ -1,8 +1,8 @@
 import numpy as np
 import sys
-import load_muellericcv2017_handlers
+import muellericcv2017_importer
 
-synthhands_handler, egodexter_handler = load_muellericcv2017_handlers.load()
+synthhands_handler, egodexter_handler = muellericcv2017_importer.load()
 
 NUM_HANDJOINT_JOINTS = 21
 NUM_DIMS = 3

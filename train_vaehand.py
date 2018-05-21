@@ -1,4 +1,4 @@
-import load_muellericcv2017_handlers
+import muellericcv2017_importer
 from torch.autograd import Variable
 import numpy as np
 from losses import euclidean_loss
@@ -12,7 +12,7 @@ parser.add_argument('--num_epochs', dest='num_epochs', type=int, required=True,
                     help='Total number of iterations to train')
 parser.add_argument('--rel_pos', dest='rel_pos', action='store_true', default=False,
                     help='Whether to use relative joint position (to the hand root)')
-parser.add_argument('-c', dest='checkpoint_filepath', default='',
+parser.add_argument('-c', dest='checkpoint_filepath', default='vaehand.pth.tar',
                     help='Checkpoint file from which to begin training')
 parser.add_argument('--log_interval', type=int, dest='log_interval', default=10,
                     help='Number of iterations interval on which to log'
@@ -61,7 +61,8 @@ def print_verbose(str, verbose, n_tabs=0, erase_line=False):
     return msg
 
 
-synthhands_handler, _ = load_muellericcv2017_handlers.load()
+loaded_modules = muellericcv2017_importer.load_modules()
+synthhands_handler = loaded_modules['synthhands_handler']
 
 train_loader_synthhands = synthhands_handler.get_SynthHands_trainloader(root_folder=train_vars['root_folder'],
                                                              joint_ixs=range(21),
