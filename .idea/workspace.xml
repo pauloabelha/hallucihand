@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2c43010-56e7-49d2-9204-afd81f66e998" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/muellericcv2017_importer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hand_prior.py" beforeDir="false" afterPath="$PROJECT_DIR$/hand_prior.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/load_muellericcv2017_handlers.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/train_vaehand.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_vaehand.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/validate_vaehand.py" beforeDir="false" afterPath="$PROJECT_DIR$/validate_vaehand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vaehand_25_relpos.pth.tar" beforeDir="false" afterPath="$PROJECT_DIR$/vaehand_25_relpos.pth.tar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vaehand_25_relpos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vaehand_25_relpos.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +18,8 @@
       <file leaf-file-name="train_vaehand.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train_vaehand.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="63" column="14" selection-start-line="63" selection-end-line="63" selection-end-column="14" />
+            <state relative-caret-position="383">
+              <caret line="42" column="65" selection-start-line="42" selection-start-column="65" selection-end-line="42" selection-end-column="65" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -210,7 +207,7 @@
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3545082" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.30737704" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -233,7 +230,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="53" />
+      <option name="time" value="54" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -460,8 +457,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train_vaehand.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="63" column="14" selection-start-line="63" selection-end-line="63" selection-end-column="14" />
+        <state relative-caret-position="383">
+          <caret line="42" column="65" selection-start-line="42" selection-start-column="65" selection-end-line="42" selection-end-column="65" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>

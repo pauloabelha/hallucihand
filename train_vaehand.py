@@ -34,13 +34,20 @@ args = parser.parse_args()
 
 train_vars = {}
 train_vars['root_folder'] = args.root_folder
-train_vars['checkpoint_filepath'] = args.checkpoint_filepath
+train_vars['latent_dims'] = args.latent_dims
 train_vars['rel_pos'] = args.rel_pos
+if train_vars['rel_pos']:
+    rel_pos_str = '_relpos'
+else:
+    rel_pos_str = ''
+output_filenamebase = 'vaehand_' + str(train_vars['latent_dims']) + rel_pos_str
+train_vars['checkpoint_filepath'] = output_filenamebase + '.pth.tar'
+train_vars['output_filepath'] = output_filenamebase + '.txt'
 train_vars['num_epochs'] = args.num_epochs
 train_vars['batch_size'] = args.batch_size
 train_vars['log_interval'] = args.log_interval
 train_vars['use_cuda'] = args.use_cuda
-train_vars['output_filepath'] = args.output_filepath
+
 train_vars['latent_dims'] = args.latent_dims
 train_vars['verbose'] = args.verbose
 train_vars['losses'] = []
