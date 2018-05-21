@@ -12,8 +12,6 @@ parser.add_argument('--num_epochs', dest='num_epochs', type=int, required=True,
                     help='Total number of iterations to train')
 parser.add_argument('--rel_pos', dest='rel_pos', action='store_true', default=False,
                     help='Whether to use relative joint position (to the hand root)')
-parser.add_argument('-c', dest='checkpoint_filepath', default='vaehand.pth.tar',
-                    help='Checkpoint file from which to begin training')
 parser.add_argument('--log_interval', type=int, dest='log_interval', default=10,
                     help='Number of iterations interval on which to log'
                          ' a model checkpoint (default 10)')
@@ -23,8 +21,6 @@ parser.add_argument('--cuda', dest='use_cuda', action='store_true', default=Fals
                     help='Whether to use cuda for training')
 parser.add_argument('--verbose', dest='verbose', action='store_true', default=True,
                     help='Whether to use cuda for training')
-parser.add_argument('-o', dest='output_filepath', default='',
-                    help='Output file for logging')
 parser.add_argument('--batch_size', type=int, dest='batch_size', default=16,
                     help='Batch size for training (if larger than max memory batch, training will take '
                          'the required amount of iterations to complete a batch')
